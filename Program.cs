@@ -25,7 +25,7 @@ public class Program
         {
             if(update.Message.From.Id == 493229987)
             {   
-                await /*дожидаемся выполнения запроса к телеграму*/ client.SetMessageReaction(493229987, update.Message.MessageId,[ new ReactionTypeEmoji { Emoji = "👍" }]);
+                await /*дожидаемся выполнения запроса к телеграму*/ client.SetMessageReaction(update.Message.Chat.Id, update.Message.MessageId,[ new ReactionTypeEmoji { Emoji = "👍" }]);
             }
         }
     }
