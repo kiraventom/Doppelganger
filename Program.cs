@@ -9,11 +9,14 @@ public class Program
     //args[0] = "C:\Users\Nikita\Documents\Doppelganger\токен бота.txt"
     public static async Task Main(string[] args )   
     {
-        string filename = args[0]; //1
-        string[] lines = File.ReadAllLines(filename); //2
-        string token = lines[0]; //3
-        TelegramBotClient client = new TelegramBotClient(token);
-        client.StartReceiving/*начинаем получать обновления от телеграма*/(OnUpdate,OnError);
+        string filename = args[0]; 
+        string[] lines = File.ReadAllLines(filename); 
+        string token1 = lines[0];
+        string token2 = lines[1]; 
+        TelegramBotClient client1 = new TelegramBotClient(token1);
+        TelegramBotClient client2 = new TelegramBotClient(token2);
+        client1.StartReceiving/*начинаем получать обновления от телеграма*/(OnUpdate,OnError);
+        client2.StartReceiving(OnUpdate,OnError);
         Console.ReadLine(); // строка служит для того, что програма не зкарылась сразу после 12-16 строки
     }
     private static async Task OnError(ITelegramBotClient client, Exception exception, HandleErrorSource source, CancellationToken token)
