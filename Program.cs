@@ -28,7 +28,14 @@ public class Program
         {
             if(update.Message.From.Id == 493229987)
             {   
-                await /*дожидаемся выполнения запроса к телеграму*/ client.SetMessageReaction(update.Message.Chat.Id, update.Message.MessageId,[ new ReactionTypeEmoji { Emoji = "👍" }]);
+                if(update.Message.Text == "Добро" || update.Message.Text == "добро")
+                {
+                    await client.SetMessageReaction(update.Message.Chat.Id, update.Message.MessageId,[ new ReactionTypeEmoji { Emoji = "🤝" }]);
+                }
+                else
+                {
+                    await /*дожидаемся выполнения запроса к телеграму*/ client.SetMessageReaction(update.Message.Chat.Id, update.Message.MessageId,[ new ReactionTypeEmoji { Emoji = "👍" }]);
+                }   
             }
         }
     }
