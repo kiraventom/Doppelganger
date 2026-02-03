@@ -15,8 +15,12 @@ public class Program
         string token2 = lines[1]; 
         TelegramBotClient client1 = new TelegramBotClient(token1);
         TelegramBotClient client2 = new TelegramBotClient(token2);
-        client1.StartReceiving/*начинаем получать обновления от телеграма*/(OnUpdate,OnError);
-        client2.StartReceiving(OnUpdate,OnError);
+	var options = new ReceiverOptions()
+	{
+		AllowedUpdates = [ UpdateType.Message, UpdateType.MessageReaction ]
+	};
+        client1.StartReceiving/*начинаем получать обновления от телеграма*/(OnUpdate,OnError, options);
+        client2.StartReceiving(OnUpdate,OnError, options);
         Console.ReadLine(); // строка служит для того, что програма не зкарылась сразу после 12-19 строки
     }
     private static async Task OnError(ITelegramBotClient client, Exception exception, HandleErrorSource source, CancellationToken token)
