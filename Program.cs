@@ -15,13 +15,11 @@ public class Program
         string token2 = lines[1]; 
         TelegramBotClient client1 = new TelegramBotClient(token1);
         TelegramBotClient client2 = new TelegramBotClient(token2);
-	var options = new ReceiverOptions()
-	{
-		AllowedUpdates = [ UpdateType.Message, UpdateType.MessageReaction ]
-	};
-        client1.StartReceiving/*начинаем получать обновления от телеграма*/(OnUpdate,OnError, options);
-        client2.StartReceiving(OnUpdate,OnError, options);
-        Console.ReadLine(); // строка служит для того, что програма не зкарылась сразу после 12-19 строки
+	    var options = new ReceiverOptions();
+		options.AllowedUpdates = [ UpdateType.Message, UpdateType.MessageReaction ];
+        client1.StartReceiving/*начинаем получать обновления от телеграма*/(OnUpdate, OnError, options);
+        client2.StartReceiving(OnUpdate, OnError, options);
+        Console.ReadLine(); // строка служит для того, что програма не зкарылась сразу 
     }
     private static async Task OnError(ITelegramBotClient client, Exception exception, HandleErrorSource source, CancellationToken token)
     {
@@ -33,7 +31,8 @@ public class Program
         {
             if(update.Message.From.Id == 493229987)
             {   
-                if(update.Message.Text.Contains("Добро") || update.Message.Text.Contains("добро"))// TODO
+                string lowerInput = update.Message.Text.ToLower();
+                if(lowerInput.Contains("добро"))// нет блять зло
                 {
                     await client.SetMessageReaction(update.Message.Chat.Id, update.Message.MessageId,[ new ReactionTypeEmoji { Emoji = "🤝" }]);
                 }
