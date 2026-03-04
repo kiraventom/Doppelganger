@@ -31,15 +31,24 @@ public class Program
         {
             if(update.Message.From.Id == 493229987)
             {   
-                string lowerInput = update.Message.Text.ToLower();
-                if(lowerInput.Contains("добро"))// нет блять зло
+                string lowerText = "";
+                if (update.Message.Text != null)
+                {
+                    lowerText = update.Message.Text.ToLower();
+                }
+                else if (update.Message.Caption != null)
+                {
+                    lowerText = update.Message.Caption.ToLower();
+                }
+
+                if (lowerText.Contains("добро"))
                 {
                     await client.SetMessageReaction(update.Message.Chat.Id, update.Message.MessageId,[ new ReactionTypeEmoji { Emoji = "🤝" }]);
                 }
                 else
                 {
                     await /*дожидаемся выполнения запроса к телеграму*/ client.SetMessageReaction(update.Message.Chat.Id, update.Message.MessageId,[ new ReactionTypeEmoji { Emoji = "👍" }]);
-                }   
+                }
             }
         }
         else if(update.Type == UpdateType.MessageReaction)
